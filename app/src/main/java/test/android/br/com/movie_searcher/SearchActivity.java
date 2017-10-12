@@ -96,7 +96,6 @@ public class SearchActivity extends AppCompatActivity {
                     );
                     searchActivity.putExtra("movie", movie);
                     if(searchActivity != null){
-                        finish();
                         startActivity(searchActivity);
                     }
                 }else{

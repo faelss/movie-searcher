@@ -1,20 +1,42 @@
 package test.android.br.com.movie_searcher;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-/**
- * Created by Fael on 12/10/2017.
- */
+import com.bumptech.glide.Glide;
 
-public class MovieProfile extends AppCompatActivity{
+import model.Movie;
+
+public class MovieProfile extends AppCompatActivity {
+
+    private TextView movieText;
+    private ImageView moviePoster;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_movie_profile);
+        moviePoster = findViewById(R.id.poster);
+        movieText = findViewById(R.id.movieText);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Movie movie = (Movie) getIntent().getExtras().getSerializable("movie");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(movie.getTitle());
+        Glide.with(this)
+                .load(movie.getPoster())
+                .into(moviePoster);
+        movieText.setTextColor(getColor(R.color.white));
+        movieText.setText("Sinopse: \n\n " + movie.getPlot() + "Ano: \n\n " + movie.getYear() + "Gênero: \n\n " + movie.getGenre());
 
-
+    }
 }
