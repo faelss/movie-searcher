@@ -1,11 +1,7 @@
 package test.android.br.com.movie_searcher;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,7 +32,11 @@ public class MovieProfile extends AppCompatActivity {
                 .load(movie.getPoster())
                 .into(moviePoster);
         movieText.setTextColor(getColor(R.color.white));
-        movieText.setText("Sinopse: \n\n " + movie.getPlot() + "Ano: \n\n " + movie.getYear() + "Gênero: \n\n " + movie.getGenre());
+        movieText.setText(
+            "Sinopse: \n\n " + movie.getPlot() + "Ano: \n\n " + movie.getYear() + "Gênero: \n\n " + movie.getGenre()
+            + "Diretores: \n\n " + movie.getDirector() + "Elenco: \n\n " + movie.getActors() + "Produção: \n\n " + movie.getProduction()
+            + "Site: \n\n " + movie.getWebsite()
+        );
 
     }
 }

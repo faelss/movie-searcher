@@ -26,7 +26,7 @@
             android:label="Movie Searcher" />
         <activity
             android:name=".MovieProfile"
-            android:label="@string/title_activity_movie_profile"
+            android:label="Movie Searcher"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
