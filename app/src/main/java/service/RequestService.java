@@ -17,7 +17,4 @@ public interface RequestService {
             @Query("t") String title,
             @Query("y") int year
     );
-
-
-
 }
