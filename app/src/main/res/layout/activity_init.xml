@@ -53,4 +53,12 @@
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/abc_btn_check_to_on_mtrl_015"
+        tools:layout_editor_absoluteX="159dp"
+        tools:layout_editor_absoluteY="60dp" />
+
 </android.support.constraint.ConstraintLayout>
