@@ -17,4 +17,4 @@ gradle.properties
 gradlew
 gradlew.bat
 settings.gradle
-/.app/build.gradle
+/app/build.gradle
