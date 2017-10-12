@@ -10,6 +10,7 @@ import service.RequestService;
 public class ApiUtil {
 
     public static final String base_url = "http://www.omdbapi.com/";
+    public static final String api_key = "3a49d0b9";
 
     private ApiUtil(){
         super();
