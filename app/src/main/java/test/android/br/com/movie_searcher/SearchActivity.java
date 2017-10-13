@@ -5,12 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import java.io.Serializable;
 
 import model.Movie;
 import retrofit2.Call;
@@ -27,8 +26,8 @@ public class SearchActivity extends AppCompatActivity {
     private EditText movieYear;
     private Button sendButton;
     private Button resetButton;
-    private Intent intent;
-    private Intent searchActivity;
+    private Intent movieProfile;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +37,19 @@ public class SearchActivity extends AppCompatActivity {
         sendButton = findViewById(R.id.sendButton);
         movieName = findViewById(R.id.movieName);
         movieYear = findViewById(R.id.movieYear);
-        intent = getIntent();
         request = ApiUtil.apiService();
         welcomeText = findViewById(R.id.welcomeText1);
-        welcomeText.setText("Bem vindo " + intent.getExtras().getString("userName") + " digite o nome do filme e o ano ou só o nome: ");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        userName = getIntent().getStringExtra("username");
+        if(userName == null){
+            welcomeText.setText("Bem vindo sem nome, \n digite o nome do filme e o ano ou só o nome: ");
+        }else{
+            welcomeText.setText("Bem vindo " + userName + " digite o nome do filme e o ano ou só o nome: ");
+        }
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,17 +60,45 @@ public class SearchActivity extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendRequest(String.valueOf(movieYear.getText()) , String.valueOf(movieYear.getText()));
+                if(movieName.getText().toString().matches("")){
+                    new AlertDialog.Builder(SearchActivity.this)
+                            .setTitle("ERRO")
+                            .setMessage("Digite um nome do filme.")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            }).show();
+                }else if(movieYear.getText().toString().matches("")) {
+                    sendRequest(String.valueOf(movieName.getText()), null);
+                    Log.d("Test", "test");
+                }else if(!movieYear.getText().toString().matches("") && !movieName.getText().toString().matches("")){
+                    if(!movieYear.getText().toString().matches("^(19|20)\\d{2}$")) {
+                        new AlertDialog.Builder(SearchActivity.this)
+                                .setTitle("ERRO")
+                                .setMessage("Data inválida")
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.cancel();
+                                    }
+                                }).show();
+                    }else{
+                        sendRequest(String.valueOf(movieName.getText()),String.valueOf(movieYear.getText()));
+                        Log.d("Test","test1");
+                    }
+                }
             }
         });
     }
 
     private void sendRequest(String movieName , String year){
-        request.movieGet(movieName,Integer.valueOf(year),ApiUtil.api_key).enqueue(new Callback<Movie>() {
+        request.movieGet(movieName,year,ApiUtil.api_key).enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
                 if(response.isSuccessful()){
-                    searchActivity = new Intent(SearchActivity.this,MovieProfile.class);
+                    movieProfile = new Intent(SearchActivity.this,MovieProfile.class);
                     Movie movie = new Movie(
                             response.body().getTitle(),
                             response.body().getYear(),
@@ -94,9 +125,9 @@ public class SearchActivity extends AppCompatActivity {
                             response.body().getProduction(),
                             response.body().getWebsite()
                     );
-                    searchActivity.putExtra("movie", movie);
-                    if(searchActivity != null){
-                        startActivity(searchActivity);
+                    movieProfile.putExtra("movie", movie);
+                    if(movieProfile != null){
+                        startActivity(movieProfile);
                     }
                 }else{
                     new AlertDialog.Builder(SearchActivity.this)

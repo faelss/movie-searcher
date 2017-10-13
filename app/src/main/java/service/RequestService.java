@@ -15,7 +15,7 @@ public interface RequestService {
     @GET(ApiUtil.base_url)
     Call<Movie> movieGet(
             @Query("t") String title,
-            @Query("y") int year,
+            @Query("y") String year,
             @Query("apikey") String apiKey
     );
 }

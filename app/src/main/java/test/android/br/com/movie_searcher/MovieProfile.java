@@ -31,7 +31,6 @@ public class MovieProfile extends AppCompatActivity {
         Glide.with(this)
                 .load(movie.getPoster())
                 .into(moviePoster);
-        movieText.setTextColor(getColor(R.color.white));
         movieText.setText(
             "Sinopse: \n\n " + movie.getPlot() + "Ano: \n\n " + movie.getYear() + "Gênero: \n\n " + movie.getGenre()
             + "Diretores: \n\n " + movie.getDirector() + "Elenco: \n\n " + movie.getActors() + "Produção: \n\n " + movie.getProduction()

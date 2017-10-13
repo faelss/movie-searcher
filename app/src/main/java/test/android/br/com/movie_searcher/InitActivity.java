@@ -9,7 +9,8 @@ import android.widget.EditText;
 
 public class InitActivity extends AppCompatActivity {
 
-    private Intent initActivity = null;
+    private Intent searchActivity = null;
+    private EditText nameUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,16 +21,17 @@ public class InitActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        final EditText userName = findViewById(R.id.userName);
+        nameUser = findViewById(R.id.nameUser);
+        nameUser.setText("");
         Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                initActivity = new Intent(InitActivity.this,SearchActivity.class);
-                initActivity.putExtra("userName",String.valueOf(userName));
-                if(initActivity != null){
+                searchActivity = new Intent(InitActivity.this,SearchActivity.class);
+                searchActivity.putExtra("username",nameUser.getText().toString());
+                if(searchActivity != null){
                     finish();
-                    startActivity(initActivity);
+                    startActivity(searchActivity);
                 }
             }
         });
