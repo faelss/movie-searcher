@@ -72,7 +72,6 @@ public class SearchActivity extends AppCompatActivity {
                             }).show();
                 }else if(movieYear.getText().toString().matches("")) {
                     sendRequest(String.valueOf(movieName.getText()), null);
-                    Log.d("Test", "test");
                 }else if(!movieYear.getText().toString().matches("") && !movieName.getText().toString().matches("")){
                     if(!movieYear.getText().toString().matches("^(19|20)\\d{2}$")) {
                         new AlertDialog.Builder(SearchActivity.this)
@@ -86,7 +85,6 @@ public class SearchActivity extends AppCompatActivity {
                                 }).show();
                     }else{
                         sendRequest(String.valueOf(movieName.getText()),String.valueOf(movieYear.getText()));
-                        Log.d("Test","test1");
                     }
                 }
             }
