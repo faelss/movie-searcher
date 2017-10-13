@@ -6,15 +6,3 @@
 .DS_Store
 /build
 /captures
-.externalNativeBuild
-*.iml
-.idea
-#.idea/workspace.xml
-build/
-build.gradle
-gradle.properties
-/gradle/*
-gradlew
-gradlew.bat
-settings.gradle
-app/build.gradle
